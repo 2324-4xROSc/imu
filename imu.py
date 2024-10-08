@@ -3,12 +3,6 @@ from time import sleep
 import mpu6050
 import json
 
-"""broker = '192.168.22.253'
-port = 1883
-topic = "supercoolcar/imu"
-temperature_topic = "supercoolcar/imu-temperature"
-"""
-
 client_id = "imu"
 
 def load_config(file_path):
@@ -59,7 +53,7 @@ def publish(client):
         client.publish(topic, msg)
         client.publish(temperature_topic, temperature_msg)
 
-        sleep(2)
+        sleep(sleepTimer)
 
 def run():
     client = connect_mqtt()
@@ -74,7 +68,10 @@ if __name__ == '__main__':
     port = config["mqtt"]["port"]
     topic = config["mqtt"]["topic"]
     temperature_topic = config["mqtt"]["temperature_topic"]
-    address = hex(int(config["address"]))
-    # Create a new Mpu6050 object
+    address = int(config["address"], base=16)
+    print("Listening on address:", address)
+    sleepTimer = config["sleepTimer"]
+    
     mpu6050 = mpu6050.mpu6050(address)
+
     run()
