@@ -3,16 +3,19 @@ from time import sleep
 import mpu6050
 import json
 
-broker = '192.168.22.253'
+"""broker = '192.168.22.253'
 port = 1883
 topic = "supercoolcar/imu"
 temperature_topic = "supercoolcar/imu-temperature"
+"""
+
 client_id = "imu"
 
-# Create a new Mpu6050 object
-mpu6050 = mpu6050.mpu6050(0x68)
+def load_config(file_path):
+    with open(file_path, 'r') as file:
+        config = json.load(file)
+    return config
 
-# Define a function to read the sensor data
 def read_sensor_data():
     # Read the accelerometer values
     accelerometer_data = mpu6050.get_accel_data()
@@ -66,4 +69,12 @@ def run():
 
 
 if __name__ == '__main__':
+    config = load_config("config.json")
+    broker = config["mqtt"]["broker"]
+    port = config["mqtt"]["port"]
+    topic = config["mqtt"]["topic"]
+    temperature_topic = config["mqtt"]["temperature_topic"]
+    address = hex(int(config["address"]))
+    # Create a new Mpu6050 object
+    mpu6050 = mpu6050.mpu6050(address)
     run()

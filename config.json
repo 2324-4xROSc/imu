@@ -1,0 +1,9 @@
+{
+    "mqtt": {
+        "broker": "192.168.22.253",
+        "port": 1883,
+        "topic": "supercoolcar/imu",
+        "temperature_topic": "supercoolcar/imu-temperature"
+    },
+    "address": "0x68"
+}
