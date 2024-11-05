@@ -68,8 +68,8 @@ if __name__ == '__main__':
     port = config["mqtt"]["port"]
     topic = config["mqtt"]["topic"]
     temperature_topic = config["mqtt"]["temperature_topic"]
-    address = int(config["address"], base=16)
-    print("Listening on address:", address)
+    address = int(config["address"], 16)
+    print("Listening on address:", config["address"])
     sleepTimer = config["sleepTimer"]
     
     mpu6050 = mpu6050.mpu6050(address)
